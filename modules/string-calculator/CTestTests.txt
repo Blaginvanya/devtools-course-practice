@@ -1,0 +1,101 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a string calculator application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1+1 2+1
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 1 argument."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} pi+2
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Incorrect data"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Operation_Format
+    COMMAND ${APPLICATION} 1++2
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Operation_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Incorrect data"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Add_Two_Numbers
+    COMMAND ${APPLICATION} 1.5+3.2
+)
+set_tests_properties (${prefix}_can_Add_Two_Numbers PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 4.7"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Diff_Two_Numbers
+    COMMAND ${APPLICATION} 1.5-3.2
+)
+set_tests_properties (${prefix}_can_Diff_Two_Numbers PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = -1.7"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Mult_Two_Numbers
+    COMMAND ${APPLICATION} 1.5*3.2
+)
+set_tests_properties (${prefix}_can_Mult_Two_Numbers PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 4.8"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Divide_Two_Numbers
+    COMMAND ${APPLICATION} 3.2/2
+)
+set_tests_properties (${prefix}_can_Divide_Two_Numbers PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 1.6"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Divide_By_Zero
+    COMMAND ${APPLICATION} 1/0
+)
+set_tests_properties (${prefix}_can_Detect_Divide_By_Zero PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: division by zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Rase_To_A_Power
+    COMMAND ${APPLICATION} 3^2
+)
+set_tests_properties (${prefix}_can_Rase_To_A_Power PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 9"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Do_Several_Operations
+    COMMAND ${APPLICATION} 4*2-2^3/4
+)
+set_tests_properties (${prefix}_can_Do_Several_Operations PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 6"
+    LABELS "${MODULE}")

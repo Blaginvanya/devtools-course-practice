@@ -8,6 +8,7 @@
 
 #include "include/monom.h"
 #include "include/polynom.h"
+#include "include/polynoms_calculator.h"
 
 using std::map;
 
@@ -495,7 +496,6 @@ TEST(PolynomTest, Add_Different_Monom) {
     EXPECT_EQ(p, p1);
 }
 
-
 TEST(PolynomTest, Add_Same_Monom) {
     // Arrange
     map<char, double> vars1{
@@ -518,3 +518,151 @@ TEST(PolynomTest, Add_Same_Monom) {
     // Assert
     EXPECT_EQ(p_res, p1);
 }
+
+class PolynomCalculatorTest : public ::testing::Test {
+ private:
+    std::string res_;
+    PolynomsCalculator calc_;
+
+ protected:
+    void Act(std::vector<std::string> argv_) {
+        std::vector<const char*> new_argv_;
+
+        new_argv_.push_back("appname");
+        for (size_t i = 0; i < argv_.size(); i++) {
+            new_argv_.push_back(argv_[i].c_str());
+        }
+
+        const char** argv = &new_argv_.front();
+        int argc = static_cast<int>(argv_.size()) + 1;
+
+        res_ = calc_(argc, argv);
+    }
+
+    void Assert(std::string exp) {
+        EXPECT_EQ(exp, res_);
+    }
+};
+
+TEST_F(PolynomCalculatorTest, Calculator_Check_Summ) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "(2x^1) + (2y^1) + (-3z^1)";
+    std::vector<std::string> vec_arg = { "2.0x", "2.0y-3z", "+" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+
+TEST_F(PolynomCalculatorTest, Calculator_Check_Subt) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "(1t^1x^3) + (-7s^2z^1)";
+    std::vector<std::string> vec_arg = { "2.0x^3t-4zs^2", "x^3t+3zs^2", "-" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+
+TEST_F(PolynomCalculatorTest, Calculator_Check_Multiplication) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "(9x^2y^1) + (-9x^2z^1)";
+    std::vector<std::string> vec_arg = { "3.0x^2", "3.0y-3z", "*" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+
+TEST_F(PolynomCalculatorTest, Check_Incorrect_Operation) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "Incorrect input.";
+    std::vector<std::string> vec_arg = { "3.0x^2", "3.0y-3z", "$" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+
+TEST_F(PolynomCalculatorTest, Check_Brackets_Operator_Correct) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "(9x^2y^1) + (-9x^2z^1)";
+    std::vector<std::string> vec_arg = { "3.0x^2", "3.0y-3.0z", "*" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+
+TEST_F(PolynomCalculatorTest, Check_Brackets_Operator_Incorrect) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "Error";
+    std::vector<const char*> v;
+    std::vector<std::string> vec_arg = { "3.0x^2%^*", "3.0y-3.0z", "*" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+
+TEST_F(PolynomCalculatorTest, Check_Brackets_Operator_Incorrect_1) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "Error";
+    std::vector<std::string> vec_arg = { "3.0x^y2*", "3.0y-3z", "*" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+
+TEST_F(PolynomCalculatorTest, Check_Brackets_Operator_Incorrect_2) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "Error";
+    std::vector<std::string> vec_arg = { "^3.0x^2y^4", "3.0y-3z", "*" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+
+TEST_F(PolynomCalculatorTest, Check_Brackets_Operator_Incorrect_3) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "Error";
+    std::vector<std::string> vec_arg = { "3.0^2x^5", "3.0y-3z", "*" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+
+TEST_F(PolynomCalculatorTest, Check_Brackets_Operator_Incorrect_4) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "Error";
+    std::vector<std::string> vec_arg = { ".3.0x^2", "3.0y-3z", "*" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+
+TEST_F(PolynomCalculatorTest, Check_Brackets_Operator_Incorrect_5) {
+    // Arrange
+    PolynomsCalculator calc;
+    std::string p = "Error";
+    std::vector<std::string> vec_arg = { "3.0x^2z.y^8", "3.0y-3z", "*" };
+
+    Act(vec_arg);
+
+    Assert(p);
+}
+

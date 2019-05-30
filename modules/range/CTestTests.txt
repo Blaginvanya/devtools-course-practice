@@ -1,0 +1,179 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a integer range application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Format_Contain_A
+    COMMAND ${APPLICATION} contain_a [34,100]
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Format_Contain_A PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Must be 3 args for contain_a"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_contain_A_Can_Work_By_True
+    COMMAND ${APPLICATION} contain_a [12,15] 2 12 15
+)
+set_tests_properties (${prefix}_contain_A_Can_Work_By_True PROPERTIES
+    PASS_REGULAR_EXPRESSION "TRUE"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_contain_A_Can_Work_By_False
+    COMMAND ${APPLICATION} contain_a [12,15] 2 14 16
+)
+set_tests_properties (${prefix}_contain_A_Can_Work_By_False PROPERTIES
+    PASS_REGULAR_EXPRESSION "FALSE"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} contain_a [12,15] 2 pi 15.2
+)
+
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+PASS_REGULAR_EXPRESSION "Wrong number format!"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Get_All_Points
+    COMMAND ${APPLICATION} all_p [12,15]
+)
+
+set_tests_properties (${prefix}_can_Get_All_Points PROPERTIES
+PASS_REGULAR_EXPRESSION "Points: 12, 13, 14, 15"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Incorrect_Number_Of_Values_All_P
+    COMMAND ${APPLICATION} all_p
+)
+
+set_tests_properties (${prefix}_can_Detect_Incorrect_Number_Of_Values_All_P PROPERTIES
+PASS_REGULAR_EXPRESSION "ERROR: Must be 2 args for all_p"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Contain_Range_By_True
+    COMMAND ${APPLICATION} contain_r [12,16] "(12,16)"
+)
+
+set_tests_properties (${prefix}_can_Check_Contain_Range_By_True PROPERTIES
+PASS_REGULAR_EXPRESSION "TRUE"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Contain_Range_By_False
+    COMMAND ${APPLICATION} contain_r [12,16] "(10,12)"
+)
+
+set_tests_properties (${prefix}_can_Check_Contain_Range_By_False PROPERTIES
+PASS_REGULAR_EXPRESSION "FALSE"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Incorrect_Number_Of_Arguments_Contain_R
+    COMMAND ${APPLICATION} contain_r
+)
+
+set_tests_properties (${prefix}_can_Detect_Incorrect_Number_Of_Arguments_Contain_R PROPERTIES
+PASS_REGULAR_EXPRESSION "ERROR: Must be 3 args for contain_r"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Get_End_Points
+    COMMAND ${APPLICATION} end_p [12,16]
+)
+
+set_tests_properties (${prefix}_can_Get_End_Points PROPERTIES
+PASS_REGULAR_EXPRESSION "Start: 12\nEnd: 16"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Incorrect_Number_Of_Arguments_End_P
+    COMMAND ${APPLICATION} end_p
+)
+
+set_tests_properties (${prefix}_can_Detect_Incorrect_Number_Of_Arguments_End_P PROPERTIES
+PASS_REGULAR_EXPRESSION "ERROR: Must be 2 args for end_p"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Overlap_By_True
+    COMMAND ${APPLICATION} overlap [12,16] "(12,16)"
+)
+
+set_tests_properties (${prefix}_can_Check_Overlap_By_True PROPERTIES
+PASS_REGULAR_EXPRESSION "TRUE"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Overlap_By_False
+    COMMAND ${APPLICATION} overlap [12,16] "(10,12)"
+)
+
+set_tests_properties (${prefix}_can_Check_Overlap_By_False PROPERTIES
+PASS_REGULAR_EXPRESSION "FALSE"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Incorrect_Number_Of_Arguments_Overlap
+    COMMAND ${APPLICATION} overlap
+)
+
+set_tests_properties (${prefix}_can_Detect_Incorrect_Number_Of_Arguments_Overlap PROPERTIES
+PASS_REGULAR_EXPRESSION "ERROR: Must be 3 args for overlap"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Equal_Ranges_By_True
+    COMMAND ${APPLICATION} equal [12,16] "(11,17)"
+)
+
+set_tests_properties (${prefix}_can_Check_Equal_Ranges_By_True PROPERTIES
+PASS_REGULAR_EXPRESSION "TRUE"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Equal_Ranges_By_False
+    COMMAND ${APPLICATION} equal [12,16] "(10,17)"
+)
+
+set_tests_properties (${prefix}_can_Check_Equal_Ranges_By_False PROPERTIES
+PASS_REGULAR_EXPRESSION "FALSE"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Incorrect_Number_Of_Arguments_Equal
+    COMMAND ${APPLICATION} equal
+)
+
+set_tests_properties (${prefix}_can_Detect_Incorrect_Number_Of_Arguments_Equal PROPERTIES
+PASS_REGULAR_EXPRESSION "ERROR: Must be 3 args for equal"
+LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Operation_Format
+    COMMAND ${APPLICATION} m-da
+)
+
+set_tests_properties (${prefix}_can_Detect_Wrong_Operation_Format PROPERTIES
+PASS_REGULAR_EXPRESSION "Wrong operation format!"
+LABELS "${MODULE}")

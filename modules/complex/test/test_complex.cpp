@@ -135,7 +135,7 @@ TEST(ComplexTest, Do_Throw_When_Division_By_Zero) {
     Complex z2(26.0, 14.0);
 
     // Act & Assert
-    EXPECT_THROW(z2 / z1, std::runtime_error);
+    ASSERT_ANY_THROW(z2 / z1);
 }
 
 TEST(ComplexTest, Number_Is_Equal_To_Itself) {
@@ -273,7 +273,7 @@ TEST(ComplexTest, Do_Throw_When_Division_And_Assign_By_Zero) {
     Complex z2(26.0, 14.0);
 
     // Act & Assert
-    EXPECT_THROW(z2 /= z1, std::runtime_error);
+    ASSERT_ANY_THROW(z2 /= z1);
 }
 
 TEST(ComplexTest, Add_Operators_Are_Equal) {

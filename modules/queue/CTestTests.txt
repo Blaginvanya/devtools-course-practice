@@ -1,0 +1,76 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Do_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Do_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a queue application."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Put
+    COMMAND ${APPLICATION} put 6243
+)
+set_tests_properties (${prefix}_Can_Put PROPERTIES
+    PASS_REGULAR_EXPRESSION ""
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Put_Several_Times
+    COMMAND ${APPLICATION} put 33 put 44 put -1
+)
+set_tests_properties (${prefix}_Can_Put_Several_Times PROPERTIES
+    PASS_REGULAR_EXPRESSION ""
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Get
+    COMMAND ${APPLICATION} put 201 get
+)
+set_tests_properties (${prefix}_Can_Get PROPERTIES
+    PASS_REGULAR_EXPRESSION "Gotten element = 201"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Top
+    COMMAND ${APPLICATION} put -23445 top
+)
+set_tests_properties (${prefix}_Can_Top PROPERTIES
+    PASS_REGULAR_EXPRESSION "The top element = -23445"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Get_Several_Times
+    COMMAND ${APPLICATION} put 1 put -2 get get
+)
+set_tests_properties (${prefix}_Can_Get_Several_Times PROPERTIES
+    PASS_REGULAR_EXPRESSION "Gotten element = -2"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Top_Several_Times
+    COMMAND ${APPLICATION} put -1 put 2 top top
+)
+set_tests_properties (${prefix}_Can_Top_Several_Times PROPERTIES
+    PASS_REGULAR_EXPRESSION "The top element = -1"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Detect_Wrong_Format_Of_Operations
+    COMMAND ${APPLICATION} put 100 Push 2 top
+)
+set_tests_properties (${prefix}_Can_Detect_Wrong_Format_Of_Operations PROPERTIES
+    PASS_REGULAR_EXPRESSION "Argument error"
+    LABELS "${MODULE}")

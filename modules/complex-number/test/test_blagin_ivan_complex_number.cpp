@@ -4,71 +4,62 @@
 
 #include "include/complex_number.h"
 
-TEST(Blagin_Ivan_ComplexNumberTest, Can_Addition_Of_Complex_Numbers) {
+TEST(Blagin_Ivan_ComplexNumberTest, Can_Pass_Complex_In_lambda) {
     // Arrange
     ComplexNumber a(1.0, 2.0);
-    ComplexNumber b(2.0, 1.0);
     ComplexNumber expRes(3.0, 3.0);
     ComplexNumber actRes;
+    auto lambda = [](ComplexNumber& x){
+        ComplexNumber b(2.0, 1.0);
+        return x + b;
+    };
 
     // Act
-    actRes = a + b;
+    actRes = lambda(a);
 
     // Assert
     EXPECT_EQ(expRes, actRes);
 }
 
-TEST(Blagin_Ivan_ComplexNumberTest, Can_Multiplication_By_Zero) {
+TEST(Blagin_Ivan_ComplexNumberTest, Can_Multiplication_By_Temp_Object) {
     // Arrange
     ComplexNumber a(1.0, 1.0);
-    ComplexNumber zero(0.0, 0.0);
     ComplexNumber res;
 
     // Act
-    res = a * zero;
+    res = a * ComplexNumber(4.0, 2.0);
 
     // Assert
-    EXPECT_EQ(res, zero);
+    EXPECT_EQ(res, ComplexNumber(2.0, 6.0));
 }
 
-TEST(Blagin_Ivan_ComplexNumberTest, Can_Divide_By_Minus_One) {
+TEST(Blagin_Ivan_ComplexNumberTest, Commutative_Property) {
     // Arrange
-    ComplexNumber x(5.0, 5.0);
-    ComplexNumber minOne(-1.0, 0.0);
-    ComplexNumber res;
-
-    // Act
-    res = x / minOne;
+    ComplexNumber x(14.35, 2352.943);
+    ComplexNumber y(14.32, 243552.943);
 
     // Assert
-    EXPECT_EQ(res.getRe(), -5.0);
-    EXPECT_EQ(res.getIm(), -5.0);
+    EXPECT_EQ(x+y, y+x);
+    EXPECT_EQ(x*y, y*x);
 }
 
-TEST(Blagin_Ivan_ComplexNumberTest, Can_compare_equals_complex_numbers) {
+TEST(Blagin_Ivan_ComplexNumberTest, Associative_Property) {
     // Arrange
-    double re = 9;
-    double im = 3;
-
-    // Act
-    ComplexNumber x(re, im);
-    ComplexNumber y(re, im);
+    ComplexNumber x(4.0, 3.0);
+    ComplexNumber y(5.0, 6.0);
+    ComplexNumber z(18.0, 32.0);
 
     // Assert
-    EXPECT_EQ(x.getRe(), y.getRe());
-    EXPECT_EQ(x.getIm(), y.getIm());
+    EXPECT_EQ((x + (y + z) == (x + z) + y), true);
+    EXPECT_EQ((x*(y*z) == (x*z)*y), true);
 }
 
-TEST(Blagin_Ivan_ComplexNumberTest,
-    The_result_of_div_and_mult_by_the_same_numb_diff_from_the_origin) {
+TEST(Blagin_Ivan_ComplexNumberTest, Distributive_Property) {
     // Arrange
-    ComplexNumber x(5.0, 6.0);
-    ComplexNumber y(3.0, 2.0);
-    ComplexNumber res(5.0, 6.0);
-
-    // Act
-    x = x / y * y;
+    ComplexNumber x(13.0, 23.0);
+    ComplexNumber y(6.0, 12.0);
+    ComplexNumber z(4.0, 3.0);
 
     // Assert
-    EXPECT_NE(x, res);
+    EXPECT_EQ(x*(y+z) == (x*y)+(x*z), true);
 }

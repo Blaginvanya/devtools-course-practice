@@ -1,0 +1,62 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Run
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_Can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Prints_Help_With_No_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Prints_Help_With_No_Arguments PROPERTIES
+PASS_REGULAR_EXPRESSION "This is a quadratic equation calculator application."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Prints_Error_With_Wrong_Number_Of_Arguments
+    COMMAND ${APPLICATION} 0 0
+)
+
+set_tests_properties (${prefix}_Prints_Error_With_Wrong_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 3 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Prints_Error_With_No_Solutions
+    COMMAND ${APPLICATION} 5 0 30
+)
+set_tests_properties (${prefix}_Prints_Error_With_No_Solutions PROPERTIES
+    PASS_REGULAR_EXPRESSION "No real solutions"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Prints_Error_With_Non_Quadratic_Equation
+    COMMAND ${APPLICATION} 0 0 1
+)
+set_tests_properties (${prefix}_Prints_Error_With_Non_Quadratic_Equation PROPERTIES
+    PASS_REGULAR_EXPRESSION "It is not a quadratic equation"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Solve_With_Two_Solutions
+    COMMAND ${APPLICATION} 1 -2 -3
+)
+set_tests_properties (${prefix}_Can_Solve_With_Two_Solutions PROPERTIES
+    PASS_REGULAR_EXPRESSION "X1 = 3, X2 = -1"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Solve_With_One_Solution
+    COMMAND ${APPLICATION} 1 12 36
+)
+set_tests_properties (${prefix}_Can_Solve_With_One_Solution PROPERTIES
+    PASS_REGULAR_EXPRESSION "X1 = X2 = -6"
+    LABELS "${MODULE}")

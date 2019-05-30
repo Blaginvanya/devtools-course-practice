@@ -1,0 +1,104 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_Can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This application prints multiple strings in LCD format."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Throws_On_Single_Invalid_String_With_Letters
+    COMMAND ${APPLICATION} 12.AB:2019
+)
+
+set_tests_properties (${prefix}_Throws_On_Single_Invalid_String_With_Letters PROPERTIES
+    PASS_REGULAR_EXPRESSION "Invalid Symbol"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Throws_On_Multiple_Invalid_String
+    COMMAND ${APPLICATION} 12 ABC 15:30 db&
+)
+
+set_tests_properties (${prefix}_Throws_On_Multiple_Invalid_String PROPERTIES
+    PASS_REGULAR_EXPRESSION "Invalid Symbol"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Printing_Single_Symbol_Is_Correct
+    COMMAND ${APPLICATION} 1
+)
+
+set_tests_properties (${prefix}_Printing_Single_Symbol_Is_Correct PROPERTIES
+    PASS_REGULAR_EXPRESSION "  \n
+                             | \n
+                             | \n\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Printing_Multiple_Symbols_Is_Correct
+    COMMAND ${APPLICATION} 06:59
+)
+
+set_tests_properties (${prefix}_Printing_Multiple_Symbols_Is_Correct PROPERTIES
+    PASS_REGULAR_EXPRESSION " _   _     _   _  \n
+                             | | |_  . |_  |_| \n
+                             |_| |_| .  _|  _| \n\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Printing_Multiple_Strings_Is_Correct
+    COMMAND ${APPLICATION} 59 2.3
+)
+
+set_tests_properties (${prefix}_Printing_Multiple_Strings_Is_Correct PROPERTIES
+    PASS_REGULAR_EXPRESSION " _   _  \n
+            	             |_  |_| \n
+                              _|  _| \n\n
+                              _     _  \n
+                              _|    _| \n
+                             |_  .  _| \n\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Printing_All_Available_Symbols_Is_Correct
+    COMMAND ${APPLICATION} 0123456789.:
+)
+
+set_tests_properties (${prefix}_Printing_All_Available_Symbols_Is_Correct PROPERTIES
+    PASS_REGULAR_EXPRESSION " _     _   _       _   _   _   _   _      \n
+                             | | |  _|  _| |_| |_  |_    | |_| |_|   . \n
+                             |_| | |_   _|   |  _| |_|   | |_|  _| . . \n\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Throws_On_Single_Invalid_String_With_Symbols
+    COMMAND ${APPLICATION} 06%^59
+)
+
+set_tests_properties (${prefix}_Throws_On_Single_Invalid_String_With_Symbols PROPERTIES
+    PASS_REGULAR_EXPRESSION "Invalid Symbol"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Printing_Without_Digits_Is_Correct
+    COMMAND ${APPLICATION} ::..
+)
+
+set_tests_properties (${prefix}_Printing_Without_Digits_Is_Correct PROPERTIES
+    PASS_REGULAR_EXPRESSION "        \n. .     \n. . . . \n\n"
+    LABELS "${MODULE}")

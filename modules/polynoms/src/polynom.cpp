@@ -44,7 +44,7 @@ std::string Polynom::ToString() {
     for (size_t i = 0; i < monoms_.size() - 1; ++i)
         ss << "(" << monoms_[i].ToString() << ") + ";
     if (monoms_.size() > 0)
-        ss << "(" << monoms_[monoms_.size() - 1].ToString() << ")";
+        ss << "(" << monoms_[monoms_.size() - 1].ToString()<< ")";
     return ss.str();
 }
 

@@ -1,0 +1,42 @@
+#############################################
+##### Testing
+#############################################
+
+add_test(
+    NAME ${prefix}_Can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a area calculator application."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Is_Checking_Number_Of_Arguments
+    COMMAND ${APPLICATION} 0 0 1
+)
+set_tests_properties (${prefix}_Is_Checking_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR : Should be pass the points in the format <x y>"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Is_Checking_Type_Of_Arguments
+    COMMAND ${APPLICATION} 0 1 / 5
+)
+set_tests_properties (${prefix}_Is_Checking_Type_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR : All arguments must be integers"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Calculate_Area
+    COMMAND ${APPLICATION} 0 0 0 1 1 2 1 0
+)
+set_tests_properties (${prefix}_Can_Calculate_Area PROPERTIES
+    PASS_REGULAR_EXPRESSION "Area of polygon = 1.50"
+    LABELS "${MODULE}")

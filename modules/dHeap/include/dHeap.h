@@ -27,13 +27,14 @@ class DHeap {
     DHeap(int _d, std::vector<int> w);
     void Insert(int w);
     void Delete(int node);
-    void Delete_min();
+    int Delete_min();
     int get_d();
     std::vector<int> get_weight();
     int get_parent(int i);
     int get_left_child(int i);
     int get_right_child(int i);
     int get_min_child(int i);
+    int get_size();
 };
 
 #endif  // MODULES_DHEAP_INCLUDE_DHEAP_H_

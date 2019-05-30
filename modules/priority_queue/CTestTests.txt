@@ -1,0 +1,52 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a priority queue application."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Push_And_Top
+    COMMAND ${APPLICATION} push 1 2 top
+)
+set_tests_properties (${prefix}_Can_Push_And_Top PROPERTIES
+    PASS_REGULAR_EXPRESSION "top element: 2"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Push_And_Pop
+    COMMAND ${APPLICATION} push 1 2 pop
+)
+set_tests_properties (${prefix}_Can_Push_And_Top PROPERTIES
+    PASS_REGULAR_EXPRESSION ""
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Push_Pop_And_Top_Right_Order
+    COMMAND ${APPLICATION} push 1 2 push 2 3 pop top
+)
+set_tests_properties (${prefix}_Can_Push_Pop_And_Top_Right_Order PROPERTIES
+    PASS_REGULAR_EXPRESSION "top element: 2"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Cant_Work_With_Wrong_Args
+    COMMAND ${APPLICATION} pu 1 2 push 2 3 pop
+)
+set_tests_properties (${prefix}_Cant_Work_With_Wrong_Args PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong arguments!"
+    LABELS "${MODULE}")

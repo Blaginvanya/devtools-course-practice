@@ -1,0 +1,67 @@
+﻿#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Run
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_Can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_Can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is application for roma number converter."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Print_Help_With_Wrong_Lines_Count
+    COMMAND ${APPLICATION} 1 2
+)
+
+set_tests_properties (${prefix}_Print_Help_With_Wrong_Lines_Count PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is application for roma number converter."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Print_Help_With_Wrong_Value
+    COMMAND ${APPLICATION} Ddf
+)
+
+set_tests_properties (${prefix}_Print_Help_With_Wrong_Value PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is application for roma number converter."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Print_Help_With_Wrong_Value_1
+    COMMAND ${APPLICATION} -1
+)
+
+set_tests_properties (${prefix}_Print_Help_With_Wrong_Value_1 PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is application for roma number converter."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Arabic_To_Roma
+    COMMAND ${APPLICATION} 324
+)
+
+set_tests_properties (${prefix}_Can_Convert_Arabic_To_Roma PROPERTIES
+    PASS_REGULAR_EXPRESSION "CCCXXIV"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Convert_Roma_To_Arabic
+    COMMAND ${APPLICATION} CCCXXIV
+)
+
+set_tests_properties (${prefix}_Can_Convert_Roma_To_Arabic PROPERTIES
+    PASS_REGULAR_EXPRESSION "324"
+    LABELS "${MODULE}")

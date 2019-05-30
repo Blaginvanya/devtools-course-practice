@@ -1,0 +1,68 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Show_Help
+    COMMAND ${APPLICATION} help
+)
+set_tests_properties (${prefix}_Can_Show_Help PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a polynom application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} x
+)
+set_tests_properties (${prefix}_Can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "Invalid count argument."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Detect_Wrong_Operation
+    COMMAND ${APPLICATION} 2x^3y^3 5z^7 $
+)
+set_tests_properties (${prefix}_Can_Detect_Wrong_Operation PROPERTIES
+    PASS_REGULAR_EXPRESSION "Incorrect input."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Summ_Polynoms
+    COMMAND ${APPLICATION} 2.0x 2.0y-3z +
+)
+set_tests_properties (${prefix}_Can_Summ_Polynoms PROPERTIES
+    PASS_REGULAR_EXPRESSION "\\(2x\\^1\\) \\+ \\(2y\\^1\\) \\+ \\(-3z\\^1\\)"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Subt_Polynoms
+    COMMAND ${APPLICATION} 2.0x^3t-4zs^2 x^3t+3zs^2 -
+)
+set_tests_properties (${prefix}_Can_Subt_Polynoms PROPERTIES
+    PASS_REGULAR_EXPRESSION "\\(1t\\^1x\\^3\\) \\+ \\(-7s\\^2z\\^1\\)"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Mult_Polynoms
+    COMMAND ${APPLICATION} 3.0x^2 3.0y-3z * 
+)
+set_tests_properties (${prefix}_Can_Mult_Polynoms PROPERTIES
+    PASS_REGULAR_EXPRESSION "\\(9x\\^2y\\^1\\) \\+ \\(-9x\\^2z\\^1\\)"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Check_Invalid_Polynoms
+    COMMAND ${APPLICATION} ^3.0x^2 3.0y-3z * 
+)
+set_tests_properties (${prefix}_Check_Invalid_Polynoms PROPERTIES
+    PASS_REGULAR_EXPRESSION "Error"
+    LABELS "${MODULE}")

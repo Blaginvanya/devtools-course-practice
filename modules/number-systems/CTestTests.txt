@@ -1,0 +1,74 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties(
+    ${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}"
+)
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Args
+    COMMAND ${APPLICATION}
+)
+set_tests_properties(
+    ${prefix}_can_Print_Help_Without_Args PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a number systems converter"
+    LABELS "${MODULE}"
+)
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Args
+    COMMAND ${APPLICATION} 1 2
+)
+set_tests_properties(
+    ${prefix}_can_Check_Number_Of_Args PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 3 arguments"
+    LABELS "${MODULE}"
+)
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_System_Base_Format
+    COMMAND ${APPLICATION} 2037465 OCT BEN
+)
+set_tests_properties(
+    ${prefix}_can_Detect_Wrong_System_Base_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong system base format!"
+    LABELS "${MODULE}"
+)
+
+add_test(
+    NAME ${prefix}_output_From_Bin_To_Hex
+    COMMAND ${APPLICATION} 1111 BIN HEX
+)
+set_tests_properties(
+    ${prefix}_output_From_Bin_To_Hex PROPERTIES
+    PASS_REGULAR_EXPRESSION "BIN: 1111\nHEX: F"
+    LABELS "${MODULE}"
+)
+
+add_test(
+    NAME ${prefix}_output_From_Hex_To_Bin
+    COMMAND ${APPLICATION} F HEX BIN
+)
+set_tests_properties(
+    ${prefix}_output_From_Hex_To_Bin PROPERTIES
+    PASS_REGULAR_EXPRESSION "HEX: F\nBIN: 1111"
+    LABELS "${MODULE}"
+)
+
+add_test(
+    NAME ${prefix}_output_From_Oct_To_Oct
+    COMMAND ${APPLICATION} 7 OCT OCT
+)
+set_tests_properties(
+    ${prefix}_output_From_Oct_To_Oct PROPERTIES
+    PASS_REGULAR_EXPRESSION "OCT: 7\nOCT: 7"
+    LABELS "${MODULE}"
+)

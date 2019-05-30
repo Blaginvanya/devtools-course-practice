@@ -1,0 +1,52 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This application determines whether"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 2
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 8 arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} 1 pi 2 4 5 5 6 7
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Do_Intersecting_Segments_Intersect
+    COMMAND ${APPLICATION} 1 1 4 1 2 -1 2 3
+)
+set_tests_properties (${prefix}_Do_Intersecting_Segments_Intersect PROPERTIES
+    PASS_REGULAR_EXPRESSION "These two line segments intersect"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Intersecting_Segments_DO_NOT_Intersect
+    COMMAND ${APPLICATION} 1 1 4 1 1 2 4 2
+)
+set_tests_properties (${prefix}_Intersecting_Segments_DO_NOT_Intersect PROPERTIES
+    PASS_REGULAR_EXPRESSION "These two line segments DON'T intersect"
+    LABELS "${MODULE}")

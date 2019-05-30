@@ -1,0 +1,78 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a elasticity of demand application"
+    LABELS "${MODULE}")
+
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 2
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 7 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_double
+    COMMAND ${APPLICATION} 1 two 3 4 5 6 i
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_double PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_int
+    COMMAND ${APPLICATION} 1 2 three 4 5 6 i
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_int PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Operation_Format
+    COMMAND ${APPLICATION} 1 2 3 4 5 6 j
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Operation_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong operation format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Use_Price_Elasticity_Of_Demand
+    COMMAND ${APPLICATION} 100 140 100 60 5 6 p
+)
+set_tests_properties (${prefix}_can_Use_Price_Elasticity_Of_Demand PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = -1.5"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Use_Income_Elasticity_Of_Demand
+    COMMAND ${APPLICATION} 1 2 100 102 10000 10200 i
+)
+set_tests_properties (${prefix}_can_Use_Income_Elasticity_Of_Demand PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = 1"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Use_Cross_Elasticity_Of_Demand
+    COMMAND ${APPLICATION} 100 102 100 98 5 6 c
+)
+set_tests_properties (${prefix}_can_Use_Cross_Elasticity_Of_Demand PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result = -1"
+    LABELS "${MODULE}")

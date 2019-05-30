@@ -174,7 +174,7 @@ void StringCalculator::ToPostfix() {
             }
         }
     } else {
-        throw std::string("Incorrect data");
+        throw std::string("ERROR: Incorrect data");
     }
 }
 
@@ -190,7 +190,7 @@ double StringCalculator::Calculate() {
             double res, op1, op2 = doubleStack_.top();
             doubleStack_.pop();
             if (doubleStack_.empty()) {
-                throw std::string("Error - Incorrect Data");
+                throw std::string("ERROR: Incorrect data");
             }
             op1 = doubleStack_.top();
             doubleStack_.pop();
@@ -213,7 +213,7 @@ double StringCalculator::Calculate() {
                 case '/':
                 {
                     if (op2 == 0) {
-                        throw std::string("Error - division by zero");
+                        throw std::string("ERROR: division by zero");
                     }
                     res = op1 / op2;
                     break;

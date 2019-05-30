@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <cfloat>
 #include <cmath>
+#include <string>
 
 Complex::Complex(): real(0), imaginary(0) {}
 Complex::Complex(const double re) : real(re), imaginary(0) {}
@@ -73,7 +74,7 @@ Complex& Complex::operator *= (const Complex &c_number) {
 
 Complex& Complex::operator /= (const Complex &c_number) {
     if (about_zero(c_number)) {
-        throw std::runtime_error("Division by zero!");
+        throw std::string("Division by zero!");
     } else {
         double copy_re = real;
         double den = c_number.get_re() * c_number.get_re() +
@@ -114,7 +115,7 @@ bool Complex::about_zero(const Complex &c_number) const {
 
 Complex Complex::operator / (const Complex &c_number) const {
     if (about_zero(c_number)) {
-        throw std::runtime_error("Division by zero!");
+        throw std::string("Division by zero!");
     } else {
         Complex res;
         double den = c_number.get_re() * c_number.get_re() +

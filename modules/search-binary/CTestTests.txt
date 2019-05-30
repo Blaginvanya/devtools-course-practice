@@ -1,0 +1,92 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a binary search application."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 2
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Check count of arguments and size of entered array."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Size_Of_Array
+    COMMAND ${APPLICATION} 0 2
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Size_Of_Array PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Size must be >= 1"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Entered_Size_And_Size_Of_Entered_Array
+    COMMAND ${APPLICATION} 3 2 1 2
+)
+set_tests_properties (${prefix}_can_Check_Entered_Size_And_Size_Of_Entered_Array PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Check count of arguments and size of entered array."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_In_Size
+    COMMAND ${APPLICATION} three 2 1 2 3
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_In_Size PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format in size!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_In_Item
+    COMMAND ${APPLICATION} 3 two 1 2 3
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_In_Item PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format in item!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_In_Array
+    COMMAND ${APPLICATION} 3 2 one 2 3
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_In_Array PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}") 
+    
+add_test(
+    NAME ${prefix}_can_Not_Found_The_Item
+    COMMAND ${APPLICATION} 3 4 1 2 3
+)
+set_tests_properties (${prefix}_can_Not_Found_The_Item PROPERTIES
+    PASS_REGULAR_EXPRESSION "Item not found"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Unsorted_Array
+    COMMAND ${APPLICATION} 3 2 3 2 1
+)
+set_tests_properties (${prefix}_can_Detect_Unsorted_Array PROPERTIES
+    PASS_REGULAR_EXPRESSION "Error! Array not sorted"
+    LABELS "${MODULE}")
+    
+add_test(
+    NAME ${prefix}_can_Search_The_Item
+    COMMAND ${APPLICATION} 3 2 1 2 3
+)
+set_tests_properties (${prefix}_can_Search_The_Item PROPERTIES
+    PASS_REGULAR_EXPRESSION "Index of the item = 1"
+    LABELS "${MODULE}")

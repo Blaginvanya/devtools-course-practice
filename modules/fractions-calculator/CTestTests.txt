@@ -1,0 +1,76 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_Can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a fraction calculator application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 2
+)
+set_tests_properties (${prefix}_Can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 5 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} gh ip 2 3 +
+)
+set_tests_properties (${prefix}_Can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "gh is not the number."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Detect_Wrong_Operation_Format
+    COMMAND ${APPLICATION} 1 1 2 3 gh
+)
+set_tests_properties (${prefix}_Can_Detect_Wrong_Operation_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong operation format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Add_Fractions
+    COMMAND ${APPLICATION} 1 2 3 4 +
+)
+set_tests_properties (${prefix}_Can_Add_Fractions PROPERTIES
+    PASS_REGULAR_EXPRESSION "Numerator = 5 Denominator = 4"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Diff_Fractions
+    COMMAND ${APPLICATION} 3 4 1 2 -
+)
+set_tests_properties (${prefix}_Can_Diff_Fractions PROPERTIES
+    PASS_REGULAR_EXPRESSION "Numerator = 1 Denominator = 4"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Mult_Fractions
+    COMMAND ${APPLICATION} 1 2 3 4 *
+)
+set_tests_properties (${prefix}_Can_Mult_Fractions PROPERTIES
+    PASS_REGULAR_EXPRESSION "Numerator = 3 Denominator = 8"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Divide_Fractions
+    COMMAND ${APPLICATION} 1 2 3 4 /
+)
+set_tests_properties (${prefix}_Can_Divide_Fractions PROPERTIES
+    PASS_REGULAR_EXPRESSION "Numerator = 2 Denominator = 3"
+    LABELS "${MODULE}")

@@ -1,0 +1,86 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_Can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "\nThis application encrypts/decrypts the contents of the file.\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Throws_On_Invalid_FileName
+    COMMAND ${APPLICATION} InvalidName SaveFile 4 EN
+)
+
+set_tests_properties (${prefix}_Throws_On_Invalid_FileName PROPERTIES
+    PASS_REGULAR_EXPRESSION "\nThis application encrypts/decrypts the contents of the file.\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Throws_On_Invalid_Operation
+    COMMAND ${APPLICATION} Encrypt.txt Decrypt.txt 4 InvalidOperation
+)
+
+set_tests_properties (${prefix}_Throws_On_Invalid_Operation PROPERTIES
+    PASS_REGULAR_EXPRESSION "\nThis application encrypts/decrypts the contents of the file.\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Encrypt_File
+    COMMAND ${APPLICATION} Encrypt.txt Decrypt.txt 4 EN
+)
+
+set_tests_properties (${prefix}_Can_Encrypt_File PROPERTIES
+    PASS_REGULAR_EXPRESSION "Xlvsykl xli hevoriww sj jyxyvi tewx,\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Decrypt_File
+    COMMAND ${APPLICATION} Decrypt.txt Encrypt.txt 4 DE
+)
+
+set_tests_properties (${prefix}_Can_Decrypt_File PROPERTIES
+    PASS_REGULAR_EXPRESSION "Through the darkness of future past,\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Encrypt_File_With_Negative_Key
+    COMMAND ${APPLICATION} Decrypt.txt Encrypt.txt -4 EN
+)
+
+set_tests_properties (${prefix}_Can_Encrypt_File_With_Negative_Key PROPERTIES
+    PASS_REGULAR_EXPRESSION "Through the darkness of future past,\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Encrypt_File_With_Zero_Key
+    COMMAND ${APPLICATION} Encrypt.txt Encrypt.txt 0 EN
+)
+
+set_tests_properties (${prefix}_Can_Encrypt_File_With_Zero_Key PROPERTIES
+    PASS_REGULAR_EXPRESSION "Through the darkness of future past,\n"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Decrypt_File_With_Zero_Key
+    COMMAND ${APPLICATION} Decrypt.txt Decrypt.txt 0 DE
+)
+
+set_tests_properties (${prefix}_Can_Decrypt_File_With_Zero_Key PROPERTIES
+    PASS_REGULAR_EXPRESSION "Xlvsykl xli hevoriww sj jyxyvi tewx,\n"
+    LABELS "${MODULE}")
+
+

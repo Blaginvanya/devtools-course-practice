@@ -1,0 +1,126 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ShapesArea class application:"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_With_Arguments
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_can_Print_Help_With_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ShapesArea class application:"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments_Tetrahedron
+    COMMAND ${APPLICATION} calc tetr
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments_Tetrahedron PROPERTIES
+    PASS_REGULAR_EXPRESSION "too few arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments_Tetrahedron
+    COMMAND ${APPLICATION} calc tetr
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments_Tetrahedron PROPERTIES
+    PASS_REGULAR_EXPRESSION "too few arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments_Tetrahedron
+    COMMAND ${APPLICATION} calc tetr
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments_Tetrahedron PROPERTIES
+    PASS_REGULAR_EXPRESSION "too few arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} calc paral 2 4 pu
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Param
+    COMMAND ${APPLICATION} calc nst 2 4 5
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Param PROPERTIES
+    PASS_REGULAR_EXPRESSION "wrong param"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Command
+    COMMAND ${APPLICATION} fs paral 2 4 5
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Command PROPERTIES
+    PASS_REGULAR_EXPRESSION "wrong command"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Cube_Area
+    COMMAND ${APPLICATION} calc cube 2
+)
+set_tests_properties (${prefix}_can_Calculate_Cube_Area PROPERTIES
+    PASS_REGULAR_EXPRESSION "area = 24"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Cone_Area
+    COMMAND ${APPLICATION} calc cone 2 2
+)
+set_tests_properties (${prefix}_can_Calculate_Cone_Area PROPERTIES
+    PASS_REGULAR_EXPRESSION "area = 25"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Sphere_Area
+    COMMAND ${APPLICATION} calc sphere 4
+)
+set_tests_properties (${prefix}_can_Calculate_Sphere_Area PROPERTIES
+    PASS_REGULAR_EXPRESSION "area = 201"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Cylinder_Area
+    COMMAND ${APPLICATION} calc cylinder 2 2
+)
+set_tests_properties (${prefix}_can_Calculate_Cylinder_Area PROPERTIES
+    PASS_REGULAR_EXPRESSION "area = 50"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Parallelipiped_Area
+    COMMAND ${APPLICATION} calc paral 5 2 2
+)
+set_tests_properties (${prefix}_can_Calculate_Parallelipiped_Area PROPERTIES
+    PASS_REGULAR_EXPRESSION "area = 48"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Tetrahedron_Area
+    COMMAND ${APPLICATION} calc tetr 5
+)
+set_tests_properties (${prefix}_can_Calculate_Tetrahedron_Area PROPERTIES
+    PASS_REGULAR_EXPRESSION "area = 43"
+    LABELS "${MODULE}")

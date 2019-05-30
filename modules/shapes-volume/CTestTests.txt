@@ -1,0 +1,118 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ShapesVolume class application:"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_With_Arguments
+    COMMAND ${APPLICATION}
+)
+
+set_tests_properties (${prefix}_can_Print_Help_With_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ShapesVolume class application:"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments_Tetrahedron
+    COMMAND ${APPLICATION} calc tetr
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments_Tetrahedron PROPERTIES
+    PASS_REGULAR_EXPRESSION "too few arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments_Tetrahedron
+    COMMAND ${APPLICATION} calc tetr
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments_Tetrahedron PROPERTIES
+    PASS_REGULAR_EXPRESSION "too few arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments_Tetrahedron
+    COMMAND ${APPLICATION} calc tetr
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments_Tetrahedron PROPERTIES
+    PASS_REGULAR_EXPRESSION "too few arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} calc paral 2 4 pu
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Param
+    COMMAND ${APPLICATION} calc nst 2 4 5
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Param PROPERTIES
+    PASS_REGULAR_EXPRESSION "wrong param"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Command
+    COMMAND ${APPLICATION} fs paral 2 4 5
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Command PROPERTIES
+    PASS_REGULAR_EXPRESSION "wrong command"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Cube_Volume
+    COMMAND ${APPLICATION} calc cube 2
+)
+set_tests_properties (${prefix}_can_Calculate_Cube_Volume PROPERTIES
+    PASS_REGULAR_EXPRESSION "volume = 8"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Cone_Volume
+    COMMAND ${APPLICATION} calc cone 3 2
+)
+set_tests_properties (${prefix}_can_Calculate_Cone_Volume PROPERTIES
+    PASS_REGULAR_EXPRESSION "volume = 18"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Sphere_Volume
+    COMMAND ${APPLICATION} calc sphere 4
+)
+set_tests_properties (${prefix}_can_Calculate_Sphere_Volume PROPERTIES
+    PASS_REGULAR_EXPRESSION "volume = 268"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Parallelipiped_Volume
+    COMMAND ${APPLICATION} calc paral 4 2 2
+)
+set_tests_properties (${prefix}_can_Calculate_Parallelipiped_Volume PROPERTIES
+    PASS_REGULAR_EXPRESSION "volume = 16"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Tetrahedron_Volume
+    COMMAND ${APPLICATION} calc tetr 12
+)
+set_tests_properties (${prefix}_can_Calculate_Tetrahedron_Volume PROPERTIES
+    PASS_REGULAR_EXPRESSION "volume = 203"
+    LABELS "${MODULE}")

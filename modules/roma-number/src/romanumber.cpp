@@ -101,19 +101,31 @@ RomaNumber::RomaNumber(int ar) {
 }
 
 RomaNumber::RomaNumber(std::string ro) {
-    if (!IsStringCorrect(ro))
+    if (!IsRomaStringCorrect(ro))
         throw "Wrong string";
     else
         RomaToArab(ro);
 }
 
-bool RomaNumber::IsStringCorrect(std::string ro) {
-    int n = ro.length();
-    for (int i = 0; i < n; ++i) {
+bool RomaNumber::IsRomaStringCorrect(const std::string ro) const {
+    for (int i = 0; ro[i] != '\0'; ++i) {
         bool flag = (ro[i] == 'I' || ro[i] == 'V' ||
             ro[i] == 'X' || ro[i] == 'L' ||
             ro[i] == 'C' || ro[i] == 'D' ||
             ro[i] == 'M');
+        if (!flag)
+            return false;
+    }
+    return true;
+}
+
+bool RomaNumber::IsArabStringCorrect(const std::string ar) const {
+    for (int i = 0; ar[i] != '\0'; i++) {
+        bool flag = (ar[i] == '0' || ar[i] == '1' ||
+            ar[i] == '2' || ar[i] == '3' ||
+            ar[i] == '4' || ar[i] == '5' ||
+            ar[i] == '6' || ar[i] == '7' ||
+            ar[i] == '8' || ar[i] == '9');
         if (!flag)
             return false;
     }

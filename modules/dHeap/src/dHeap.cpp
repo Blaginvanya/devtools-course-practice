@@ -82,15 +82,20 @@ void DHeap::Insert(int w) {
     Emersion(weight_.size() - 1);
 }
 
-void DHeap::Delete_min() {
+int DHeap::Delete_min() {
+    int min;
     Swap(0, weight_.size() - 1);
+    min = weight_.back();
     weight_.pop_back();
     Diving(0);
+    return min;
 }
 
 void DHeap::Delete(int node) {
+    int del = 0;
     Decrease_weight(node, INT16_MAX);
-    Delete_min();
+    del = Delete_min();
+    del++;
 }
 
 void DHeap::Decrease_weight(int node, int w) {
@@ -126,4 +131,8 @@ int DHeap::get_parent(int i) {
 
 int DHeap::get_min_child(int i) {
     return Min_child(i);
+}
+
+int DHeap::get_size() {
+    return weight_.size();
 }
